@@ -43,7 +43,7 @@ cat "$OUTPUT_FILE"
 # Limpar arquivo de relatório antigo
 rm -f "$OUTPUT_FILE"
 
-echo ""
+echo " "
 echo "Arquivos Temporarios:"
 echo ---------------------------------------------------------
 # Diretório para monitorar
