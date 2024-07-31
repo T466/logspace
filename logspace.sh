@@ -42,3 +42,27 @@ cat "$OUTPUT_FILE"
  
 # Limpar arquivo de relatório antigo
 rm -f "$OUTPUT_FILE"
+
+echo "ARQUIVOS TEMPORARIOS"
+
+# Diretório para monitorar
+TEMP_DIR="/tmp"
+
+# Arquivo temporário para armazenar a contagem e tamanho total
+SUMMARY_FILE="/tmp/temp_file_summary.txt"
+
+# Data atual
+CURRENT_DATE=$(date +"%Y-%m-%d %H:%M:%S")
+
+# Encontrar arquivos no diretório TEMP_DIR e calcular a quantidade e tamanho total
+find $TEMP_DIR -type f -exec du -b {} + | awk '{ total += $1; count++ } END { print count, total }' > $SUMMARY_FILE
+
+# Ler a contagem e o tamanho total dos arquivos do resumo
+read -r FILE_COUNT TOTAL_SIZE < $SUMMARY_FILE
+
+# Exibir o número de arquivos e o tamanho total no terminal
+echo "[$CURRENT_DATE] Total de arquivos temporários em $TEMP_DIR: $FILE_COUNT"
+echo "[$CURRENT_DATE] Tamanho total dos arquivos temporários em $TEMP_DIR: $TOTAL_SIZE bytes"
+
+# Limpar o arquivo temporário de resumo
+rm $SUMMARY_FILE
